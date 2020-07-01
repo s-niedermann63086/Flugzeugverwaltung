@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Title</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div class="container">
+        <h1 style="border-bottom: 5px solid"> Flughafenverwaltung </h1>
+        <h2 style="margin: 10px 0px"> Übersicht </h2>
+        <table>
+            <tr style="border: 2px solid black">
+                <th><i><a th:href="@{/(id=0)}">Name</a></i></th>
+                <th><i><a th:href="@{/(id=1)}">Kennzeichen</a></i></th>
+                <th><i><a th:href="@{/(id=2)}">Tankinhalt</a></i></th>
+                <th><i><a th:href="@{/(id=3)}">Tankinhalt aktuell</a></i></th>
+                <th><i><a th:href="@{/(id=4)}">Gewicht</a></i></th>
+            </tr>
+            <tr th:each="flugzeug : ${flugzeuge}">
+                <td th:text="*{flugzeug.name}"></td>
+                <td class="canister">
+                    <span class="kennzeichen" th:text="*{flugzeug.kennzeichen}"></span>
+                    <span class="ladung" th:text="*{flugzeug.ladung}"></span>
+                </td>
+                <td th:text="*{flugzeug.tankinhalt}"></td>
+                <td th:text="*{flugzeug.tankinhaltAktuell}"></td>
+                <td th:text="*{flugzeug.gewicht + ' Tonnen'}"></td>
+            </tr>
+        </table>
+        <div class="statistiken">
+            <h4 style="margin: 10px 0px 5px 0px;"> Statistiken </h4>
+            <span th:text="*{'Anzahl Flugzeuge: ' + flughafenSize}"></span> <br>
+            <span th:text="*{'Gesamtgewicht aller Flugzeuge: ' + totalGewicht + ' Tonnen'}"></span> <br>
+            <span th:text="*{'Treibstoff in allen Flugzeugen: ' + totalTreibstoff + ' Liter'}"></span> <br>
+        </div>
+    </div>
+    <script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/2.0.2/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.4.1/js/bootstrap.min.js}"></script>
+</body>
+<style>
+    table {
+        font-size: 20px;
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        background-color: lightgrey;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    .canister {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ladung {
+        font-size: 16px;
+    }
+
+    .statistiken {
+        align-self: center;
+        font-size: 20px;
+        border-radius: 25px;
+        display: inline-block;
+        padding: 10px;
+        background-color: lightblue;
+        margin-top: 10px;
+    }
+</style>
+</html>
